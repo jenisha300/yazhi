@@ -1,0 +1,223 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-cream text-charcoal font-body;
+}
+h1, h2, h3, .font-display {
+  font-family: "Playfair Display", serif;
+}
+.font-tamil {
+  font-family: "Catamaran", "Noto Sans Tamil", sans-serif;
+}
+.font-tamil-display {
+  font-family: "Baloo Thambi 2", "Noto Sans Tamil", sans-serif;
+}
+
+::selection {
+  background-color: #B8863B;
+  color: #FFFBF4;
+}
+
+/* Slim, premium brass scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #FBF3E7;
+}
+::-webkit-scrollbar-thumb {
+  background: #B8863B;
+  border-radius: 999px;
+  border: 2px solid #FBF3E7;
+}
+
+@layer components {
+  /* Buttons */
+  .btn-gold {
+    @apply inline-flex items-center justify-center gap-2 bg-gold-gradient text-charcoal font-semibold px-6 py-3 rounded-full shadow-gold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg;
+  }
+  .btn-outline-cream {
+    @apply inline-flex items-center justify-center gap-2 border border-cream/70 text-cream font-semibold px-6 py-3 rounded-full transition-all duration-300 hover:bg-cream hover:text-charcoal hover:-translate-y-0.5;
+  }
+  .btn-dark {
+    @apply inline-flex items-center justify-center gap-2 bg-charcoal text-cream font-semibold px-6 py-3 rounded-full transition-all duration-300 hover:bg-burgundy hover:-translate-y-0.5 hover:shadow-lg;
+  }
+  .btn-terracotta {
+    @apply inline-flex items-center justify-center gap-2 bg-terracotta-gradient text-ivory font-semibold px-6 py-3 rounded-full shadow-premium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg;
+  }
+
+  /* Cards */
+  .card-premium {
+    @apply bg-white rounded-2xl shadow-premium border border-charcoal/5 transition-all duration-300 relative;
+  }
+  .card-premium:hover {
+    @apply shadow-lg -translate-y-1;
+  }
+  .card-premium::before { 
+    content: ""; position: absolute; top: 0; left: 0; width: 0; height: 4px; background: #B08D3C; border-radius: 1rem 1rem 0 0; transition: width 0.35s ease; pointer-events: none; } .card-premium:hover::before { width: 100%; }
+  /* Section heading kit */
+  .eyebrow {
+    @apply uppercase tracking-[0.3em] text-gold text-xs font-semibold;
+  }
+  .section-title {
+    @apply font-display text-3xl md:text-4xl text-charcoal;
+  }
+
+  /* Bilingual Tamil/English heading tag: EN word stacked over its Tamil word */
+  .tamil-tag {
+    @apply inline-flex flex-col items-center leading-none;
+  }
+  .tamil-tag .en {
+    @apply uppercase tracking-[0.3em] text-gold text-xs font-semibold;
+  }
+  .tamil-tag .ta {
+    @apply font-tamil-display text-goldDark/80 text-base mt-1;
+  }
+
+  /* Inputs */
+  .input-premium {
+    @apply w-full border border-charcoal/15 bg-white rounded-xl px-4 py-3 text-sm outline-none transition focus:border-gold focus:ring-2 focus:ring-gold/30;
+  }
+}
+
+/* Fine brass divider */
+.divider-gold {
+  height: 2px;
+  width: 64px;
+  background: linear-gradient(90deg, transparent, #B8863B, transparent);
+}
+
+/* Ornamental brass divider with a small kolam dot motif in the centre */
+.divider-kolam {
+  position: relative;
+  height: 2px;
+  width: 96px;
+  margin: 0 auto;
+  background: linear-gradient(90deg, transparent, #B8863B 20%, #B8863B 80%, transparent);
+}
+.divider-kolam::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  transform: translate(-50%, -50%) rotate(45deg);
+  background: #B8863B;
+}
+
+/* Hide scrollbar for premium sliders (Reviews, Celebration category tabs) while staying scrollable/swipeable */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Shimmer skeleton (used sparingly) */
+.skeleton-shimmer {
+  background: linear-gradient(90deg, #eee 25%, #FBF3E7 37%, #eee 63%);
+  background-size: 400% 100%;
+  animation: shimmer 2.5s infinite;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Kolam side rail — a subtle, continuous decorative motif fixed along the */
+/* edge of the viewport. Purely decorative: aria-hidden, never intercepts  */
+/* pointer events, and is hidden for prefers-reduced-motion / small screens */
+/* ---------------------------------------------------------------------- */
+.kolam-rail {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 64px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.45;
+  filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.4));
+}
+.kolam-rail.left {
+  left: 0;
+}
+.kolam-rail.right {
+  right: 0;
+}
+@media (max-width: 767px) {
+  .kolam-rail {
+    width: 28px;
+    opacity: 0.1;
+  }
+}
+.kolam-watermark {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 45vw;
+  max-width: 600px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.25;
+  overflow: hidden;
+}
+.kolam-watermark.left {
+  left: -10vw;
+}
+.kolam-watermark img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left center;
+}
+@media (max-width: 767px) {
+  .kolam-watermark {
+    display: none;
+  }
+}
+
+/* Scroll-reveal base state; JS (Reveal component) toggles .is-visible */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.94);
+  transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+  will-change: opacity, transform;
+}
+.reveal-scale.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Respect reduced motion: content is instantly visible, no motion effects */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-scale {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .kolam-rail,
+  .parallax-el {
+    transform: none !important;
+  }
+  .animate-float-slow,
+  .animate-kolam-drift {
+    animation: none !important;
+  }
+}
